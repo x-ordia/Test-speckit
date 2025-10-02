@@ -1,6 +1,6 @@
-# Tasks: [FEATURE NAME]
+# Tasks: Orchestrator Agent with SQL and Ticket Analysis Tools
 
-**Input**: Design documents from `/specs/[###-feature-name]/`
+**Input**: Design documents from `/specs/001-build-a-fastapi/`
 **Prerequisites**: plan.md (required), research.md, data-model.md, contracts/
 
 ## Execution Flow (main)
@@ -40,47 +40,46 @@
 - Paths shown below assume a single FastAPI project structure as per the constitution.
 
 ## Phase 3.1: Setup
-- [ ] T001 Create project structure in `src/` and `tests/` per the implementation plan.
-- [ ] T002 Initialize Python project with FastAPI and google-genai dependencies using `pip install`.
-- [ ] T003 [P] Configure Ruff for linting and formatting in `pyproject.toml`.
+- [x] T001 Create the project structure in `src/` and `tests/` as per the implementation plan.
+- [x] T002 Initialize a Python project and install `fastapi`, `uvicorn`, and `google-generativeai` dependencies.
+- [x] T003 [P] Configure Ruff for linting and formatting in `pyproject.toml`.
 
 ## Phase 3.2: Tests First (TDD) ⚠️ MUST COMPLETE BEFORE 3.3
 **CRITICAL: These tests MUST be written and MUST FAIL before ANY implementation**
-- [ ] T004 [P] Contract test for POST /api/items in `tests/contract/test_items_post.py`.
-- [ ] T005 [P] Contract test for GET /api/items/{id} in `tests/contract/test_items_get.py`.
-- [ ] T006 [P] Integration test for item creation user story in `tests/integration/test_item_creation.py`.
+- [x] T004 [P] Create a contract test for the `POST /orchestrate` endpoint in `tests/contract/test_orchestrate_post.py`.
+- [x] T005 [P] Create an integration test for the SQL Generator user story in `tests/integration/test_sql_generator.py`.
+- [x] T006 [P] Create an integration test for the Ticket Analyser user story in `tests/integration/test_ticket_analyser.py`.
 
 ## Phase 3.3: Core Implementation (ONLY after tests are failing)
-- [ ] T007 [P] Create `Item` model in `src/models/item.py`.
-- [ ] T008 [P] Implement `ItemService` CRUD operations in `src/services/item_service.py`.
-- [ ] T009 Implement POST /api/items endpoint in `src/api/items.py`.
-- [ ] T010 Implement GET /api/items/{id} endpoint in `src/api/items.py`.
-- [ ] T011 Add input validation using Pydantic models.
-- [ ] T012 Implement centralized error handling middleware.
+- [x] T007 Create the `tools.py` file in `src/` and define the Pydantic schemas for `SQLGeneratorInput` and `TicketAnalyserInput`.
+- [x] T008 Implement the dummy `sql_generator` function in `src/tools.py`.
+- [x] T009 Implement the dummy `ticket_analyser` function in `src/tools.py`.
+- [x] T010 Create the `main.py` file in `src/` and set up the FastAPI application.
+- [x] T011 Implement the `POST /orchestrate` endpoint in `src/main.py`.
+- [x] T012 Implement the intent routing logic using `google-genai` in `src/main.py`.
+- [x] T013 Implement the handoff execution logic in `src/main.py`.
+- [x] T014 Implement the final response generation logic in `src/main.py`.
 
 ## Phase 3.4: Integration
-- [ ] T013 Connect `ItemService` to the chosen database/storage.
-- [ ] T014 Implement LLM interaction using `google-genai` SDK in a dedicated service.
-- [ ] T015 Add structured logging for requests and responses.
+- [x] T015 This phase is not applicable as there are no external integrations.
 
 ## Phase 3.5: Polish
-- [ ] T016 [P] Write unit tests for input validation in `tests/unit/test_validation.py`.
-- [ ] T017 [P] Add performance benchmarks for critical endpoints.
-- [ ] T018 [P] Generate and review OpenAPI documentation.
+- [x] T016 [P] Write unit tests for the Pydantic schemas in `tests/unit/test_schemas.py`.
+- [x] T017 [P] Add docstrings to all functions and classes.
+- [x] T018 [P] Generate and review the OpenAPI documentation.
 
 ## Dependencies
-- Tests (T004-T007) before implementation (T008-T014)
-- T008 blocks T009, T015
-- T016 blocks T018
-- Implementation before polish (T019-T023)
+- Tests (T004-T006) before implementation (T007-T014)
+- T007 blocks T008, T009
+- T010 blocks T011, T012, T013, T014
+- Implementation before polish (T016-T018)
 
 ## Parallel Example
 ```
-# Launch T004-T007 together:
-Task: "Contract test POST /api/users in tests/contract/test_users_post.py"
-Task: "Contract test GET /api/users/{id} in tests/contract/test_users_get.py"
-Task: "Integration test registration in tests/integration/test_registration.py"
-Task: "Integration test auth in tests/integration/test_auth.py"
+# Launch T004-T006 together:
+Task: "Create a contract test for the POST /orchestrate endpoint in tests/contract/test_orchestrate_post.py"
+Task: "Create an integration test for the SQL Generator user story in tests/integration/test_sql_generator.py"
+Task: "Create an integration test for the Ticket Analyser user story in tests/integration/test_ticket_analyser.py"
 ```
 
 ## Notes

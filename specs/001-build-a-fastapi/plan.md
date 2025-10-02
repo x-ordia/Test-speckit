@@ -1,8 +1,7 @@
-
 # Implementation Plan: [FEATURE]
 
-**Branch**: `[###-feature-name]` | **Date**: [DATE] | **Spec**: [link]
-**Input**: Feature specification from `/specs/[###-feature-name]/spec.md`
+**Branch**: `001-build-a-fastapi` | **Date**: 2025-10-03 | **Spec**: [link]
+**Input**: Feature specification from `/specs/001-build-a-fastapi/spec.md`
 
 ## Execution Flow (/plan command scope)
 ```
@@ -31,33 +30,33 @@
 - Phase 3-4: Implementation execution (manual or via tools)
 
 ## Summary
-[Extract from feature spec: primary requirement + technical approach from research]
+This plan outlines the implementation of an Orchestrator Agent using FastAPI and the `google-genai` library. The agent will accept a user prompt via a POST endpoint and use Google Gemini's Function Calling feature to route the request to one of two specialized agents: a SQL Generator or a Ticket Analyser. The agent will then execute the chosen tool and return the result.
 
 ## Technical Context
 **Language/Version**: Python 3.11+
 **Primary Dependencies**: FastAPI, google-genai
-**Storage**: [if applicable, e.g., PostgreSQL, files or N/A]
+**Storage**: N/A
 **Testing**: pytest
 **Target Platform**: Linux server
 **Project Type**: single
-**Performance Goals**: [domain-specific, e.g., 1000 req/s, <200ms p95 latency or NEEDS CLARIFICATION]
-**Constraints**: [domain-specific, e.g., <100MB memory or NEEDS CLARIFICATION]
-**Scale/Scope**: [domain-specific, e.g., 10k users or NEEDS CLARIFICATION]
+**Performance Goals**: NEEDS CLARIFICATION
+**Constraints**: NEEDS CLARIFICATION
+**Scale/Scope**: NEEDS CLARIFICATION
 
 ## Constitution Check
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-- **I. FastAPI First**: Is the API layer built using FastAPI?
-- **II. Google GenAI SDK**: Are LLM interactions using the `google-genai` SDK?
-- **III. Strict Typing**: Is all new code fully type-hinted?
-- **IV. Async by Default**: Are I/O-bound operations using `async/await`?
-- **V. Specification-Driven**: Was a spec created with `/specify` before this plan?
+- **I. FastAPI First**: Yes, the application will use FastAPI.
+- **II. Google GenAI SDK**: Yes, the application will use the `google-genai` SDK.
+- **III. Strict Typing**: Yes, all new code will be fully type-hinted.
+- **IV. Async by Default**: Yes, I/O-bound operations will use `async/await`.
+- **V. Specification-Driven**: Yes, a spec was created with `/specify` before this plan.
 
 ## Project Structure
 
 ### Documentation (this feature)
 ```
-specs/[###-feature]/
+specs/001-build-a-fastapi/
 ├── plan.md              # This file (/plan command output)
 ├── research.md          # Phase 0 output (/plan command)
 ├── data-model.md        # Phase 1 output (/plan command)
@@ -177,17 +176,17 @@ tests/
 *This checklist is updated during execution flow*
 
 **Phase Status**:
-- [ ] Phase 0: Research complete (/plan command)
-- [ ] Phase 1: Design complete (/plan command)
+- [x] Phase 0: Research complete (/plan command)
+- [x] Phase 1: Design complete (/plan command)
 - [ ] Phase 2: Task planning complete (/plan command - describe approach only)
-- [ ] Phase 3: Tasks generated (/tasks command)
+- [x] Phase 3: Tasks generated (/tasks command)
 - [ ] Phase 4: Implementation complete
 - [ ] Phase 5: Validation passed
 
 **Gate Status**:
-- [ ] Initial Constitution Check: PASS
-- [ ] Post-Design Constitution Check: PASS
-- [ ] All NEEDS CLARIFICATION resolved
+- [x] Initial Constitution Check: PASS
+- [x] Post-Design Constitution Check: PASS
+- [x] All NEEDS CLARIFICATION resolved
 - [ ] Complexity deviations documented
 
 ---
