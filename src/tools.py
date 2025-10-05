@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
 
+
 class SQLGeneratorInput(BaseModel):
     """Input schema for the SQL Generator tool."""
     prompt: str = Field(..., description="The natural language query for data.")
@@ -19,7 +20,10 @@ def sql_generator(prompt: str) -> str:
         return f"SELECT * FROM users WHERE name LIKE '%{search_term}%'"
     elif "orders" in prompt.lower():
         search_term = prompt.lower().replace("give me all the orders for user", "").strip()
-        return f"SELECT order_id, item, quantity FROM orders WHERE customer_id = (SELECT id FROM users WHERE name LIKE '%{search_term}%')"
+        return (
+            f"SELECT order_id, item, quantity FROM orders "
+            f"WHERE customer_id = (SELECT id FROM users WHERE name LIKE '%{search_term}%')"
+        )
     else:
         return f"SELECT * FROM data WHERE query = '{prompt}'"
 

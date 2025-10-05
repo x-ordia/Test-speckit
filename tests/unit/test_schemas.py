@@ -1,6 +1,8 @@
 import pytest
 from pydantic import ValidationError
+
 from src.tools import SQLGeneratorInput, TicketAnalyserInput
+
 
 def test_sql_generator_input_schema():
     # Valid input

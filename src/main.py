@@ -1,18 +1,18 @@
-from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel
 import google.generativeai as genai
+from fastapi import FastAPI, HTTPException
 from google.generativeai.types import Tool
+from pydantic import BaseModel
 
-from tools import SQLGeneratorInput, ticket_analyser, sql_generator, TicketAnalyserInput
+from tools import SQLGeneratorInput, TicketAnalyserInput, sql_generator, ticket_analyser
 
 app = FastAPI()
 
 # Configure Google Gemini API (replace with your actual API key)
-genai.configure(api_key="YOUR_GEMINI_API_KEY")
+genai.configure(api_key="AIzaSyCnoFxO8HiCxFeHeCIkhjO66FMIxrCHwnI")
 
 # Define the model
 model = genai.GenerativeModel(
-    model_name="gemini-pro",
+    model_name="gemini-2.5-flash",
     tools=[
         Tool(
             function_declarations=[
@@ -33,8 +33,14 @@ model = genai.GenerativeModel(
                     "parameters": {
                         "type": "object",
                         "properties": {
-                            "ticket_title": {"type": "string", "description": "The title of the technical issue or ticket."}, 
-                            "ticket_description": {"type": "string", "description": "The description of the technical issue or ticket."}
+                            "ticket_title": {
+                                "type": "string",
+                                "description": "The title of the technical issue or ticket."
+                            },
+                            "ticket_description": {
+                                "type": "string",
+                                "description": "The description of the technical issue or ticket."
+                            }
                         },
                         "required": ["ticket_title", "ticket_description"],
                     }
@@ -81,10 +87,7 @@ async def orchestrate(request: PromptRequest):
                 raise HTTPException(status_code=400, detail="Unknown tool called")
 
             # Step C: Final Response
-            final_response = model.generate_content(
-                f"The tool {function_name} returned: {result}. Please summarize this for the user."
-            )
-            return {"result": final_response.text}
+            return {"result": result}
         else:
             # If no function call, just return the model's direct response
             return {"result": response.text}
